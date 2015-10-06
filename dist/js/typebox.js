@@ -13,8 +13,8 @@
     return optionsObject;
   };
 
-  var buildTextbox = function buildTextbox(opts) {
-    var $tb = $("<div class='textbox js-textbox'>");
+  var buildTypebox = function buildTypebox(opts) {
+    var $tb = $("<div class='typebox js-typebox'>");
     $(opts.selector).html($tb);
 
     var charArray = false;
@@ -30,18 +30,18 @@
       var words = opts.string.split(" ");
 
       words.forEach(function (word, i) {
-        var $word = $("<div class='textbox-word'>");
+        var $word = $("<div class='typebox-word'>");
 
         var characters = word.split("");
         characters.forEach(function (character) {
-          var $character = $("<span class='textbox-character'>");
+          var $character = $("<span class='typebox-character'>");
           $character.text(character);
           $word.append($character);
           charArray.push($character);
         });
 
         if (i + 1 < words.length) {
-          var $character = $("<span class='textbox-character textbox-space'>");
+          var $character = $("<span class='typebox-character typebox-space'>");
           $character.html(opts.spaceCharacter);
           $word.append($character);
           charArray.push($character);
@@ -55,17 +55,17 @@
     var highlightPosition = function highlightPosition(position) {
       if (charArray) {
         charArray.forEach(function ($char) {
-          $char.removeClass("textbox-active");
+          $char.removeClass("typebox-active");
         });
 
-        charArray[position].addClass("textbox-active");
+        charArray[position].addClass("typebox-active");
       }
     };
 
     var endHighlight = function endHighlight() {
       if (charArray) {
         charArray.forEach(function ($char) {
-          $char.removeClass("textbox-active");
+          $char.removeClass("typebox-active");
         });
       }
     };
@@ -94,18 +94,18 @@
     };
   };
 
-  var Textbox = function Textbox(selector, opts) {
+  var Typebox = function Typebox(selector, opts) {
     opts = setOptions(opts, {
       string: "",
       selector: selector,
       spaceCharacter: "&nbsp;"
     });
 
-    var instance = buildTextbox(opts);
+    var instance = buildTypebox(opts);
 
     var _state = resetState(opts);
 
-    var textbox = {
+    var typebox = {
 
       state: function state() {
         return _state;
@@ -161,11 +161,11 @@
 
     };
 
-    return textbox;
+    return typebox;
   };
 
-  var PackageDefinition = Textbox;
-  var PackageName = "Textbox";
+  var PackageDefinition = Typebox;
+  var PackageName = "typebox";
 
   if ("undefined" !== typeof exports) module.exports = PackageDefinition;else if ("function" === typeof define && define.amd) {
     define(PackageName, function () {

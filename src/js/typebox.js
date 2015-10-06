@@ -11,8 +11,8 @@
     return optionsObject
   }
 
-  const buildTextbox = function(opts) {
-    let $tb = $("<div class='textbox js-textbox'>")
+  const buildTypebox = function(opts) {
+    let $tb = $("<div class='typebox js-typebox'>")
     $(opts.selector).html($tb)
 
     let charArray = false
@@ -28,18 +28,18 @@
       const words = opts.string.split(" ")
 
       words.forEach(function(word, i){
-        let $word = $("<div class='textbox-word'>")
+        let $word = $("<div class='typebox-word'>")
         
         const characters = word.split("")
         characters.forEach(function(character){
-          let $character = $("<span class='textbox-character'>")
+          let $character = $("<span class='typebox-character'>")
           $character.text(character)
           $word.append($character)
           charArray.push($character)
         })
 
         if ((i + 1) < words.length) {
-          let $character = $("<span class='textbox-character textbox-space'>")
+          let $character = $("<span class='typebox-character typebox-space'>")
           $character.html(opts.spaceCharacter)
           $word.append($character)
           charArray.push($character)
@@ -53,17 +53,17 @@
     const highlightPosition = function(position) {
       if (charArray) {
         charArray.forEach(function($char){
-          $char.removeClass("textbox-active")
+          $char.removeClass("typebox-active")
         })
 
-        charArray[position].addClass("textbox-active")
+        charArray[position].addClass("typebox-active")
       }
     }
 
     const endHighlight = function() {
       if (charArray) {
         charArray.forEach(function($char){
-          $char.removeClass("textbox-active")
+          $char.removeClass("typebox-active")
         })
       }
     }
@@ -92,18 +92,18 @@
     }
   }
 
-  const Textbox = function(selector, opts) {
+  const Typebox = function(selector, opts) {
     opts = setOptions(opts, {
       string: "",
       selector: selector,
       spaceCharacter: "&nbsp;"
     })
 
-    let instance = buildTextbox(opts)
+    let instance = buildTypebox(opts)
 
     let state = resetState(opts)
     
-    let textbox = {
+    let typebox = {
 
       state: function() {
         return state
@@ -159,12 +159,12 @@
 
     }
 
-    return textbox
+    return typebox
 
   }
 
-  const PackageDefinition = Textbox
-  const PackageName = "Textbox"
+  const PackageDefinition = Typebox
+  const PackageName = "typebox"
 
   if ("undefined" !== typeof(exports)) module.exports = PackageDefinition
   else if ("function" === typeof(define) && define.amd) {
