@@ -116,7 +116,7 @@
           opts.string = string;
         }
 
-        instance.setString(string);
+        instance.setString(opts.string);
         _state = resetState(opts);
       },
 

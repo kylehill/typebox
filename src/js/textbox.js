@@ -114,7 +114,7 @@
           opts.string = string
         }
 
-        instance.setString(string)
+        instance.setString(opts.string)
         state = resetState(opts)
       },
 
