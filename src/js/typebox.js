@@ -11,6 +11,12 @@
     return optionsObject
   }
 
+  const forEach = function(array, iterator, context) {
+    for (var i = 0; i < array.length; i++) {
+      iterator.call(context, array[i], i)
+    }
+  }
+
   const buildTypebox = function(opts) {
     let $tb = $("<div class='typebox js-typebox'>")
     $(opts.selector).html($tb)
@@ -27,11 +33,11 @@
       let charArray = []
       const words = opts.string.split(" ")
 
-      words.forEach(function(word, i){
+      forEach(words, function(word, i){
         let $word = $("<div class='typebox-word'>")
         
         const characters = word.split("")
-        characters.forEach(function(character){
+        forEach(characters, function(character){
           let $character = $("<span class='typebox-character'>")
           $character.text(character)
           $word.append($character)
@@ -52,7 +58,7 @@
 
     const highlightPosition = function(position) {
       if (charArray) {
-        charArray.forEach(function($char){
+        forEach(charArray, function($char){
           $char.removeClass("typebox-active")
         })
 
@@ -62,7 +68,7 @@
 
     const endHighlight = function() {
       if (charArray) {
-        charArray.forEach(function($char){
+        forEach(charArray, function($char){
           $char.removeClass("typebox-active")
         })
       }
@@ -119,6 +125,10 @@
       },
 
       applyCharacter: function(character) {
+        if (character === "space") {
+          character = " "
+        }
+
         if (!state.string) {
           return { started: false }
         }
